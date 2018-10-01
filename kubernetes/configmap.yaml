@@ -1,0 +1,23 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: nginx-sites-conf
+data:
+  default.conf: |
+    server {
+        #server_name _;
+        #listen 80 http2;
+        #listen [::]:80 http2;
+
+        listen 80 default_server;
+        listen [::]:80 default_server;
+
+        root /var/www/public;
+        index index.html index.htm;
+        charset utf-8;
+        error_page 404 /404.html;
+
+        location / {
+            try_files $uri $uri/ =404;
+        }
+    }
